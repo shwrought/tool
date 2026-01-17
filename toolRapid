@@ -32,9 +32,9 @@ Tool.Activated:Connect(function()
 	if Cooldown then return end
 	Cooldown = true
 
-	for i = 1, 4 do
+	for i = 1, 10 do
 		task.spawn(function()
-			for j = 1, 25 do
+			for j = 1, 80 do
 				pcall(function()
 					PunchEvent:FireServer(0.4, 0.01, 1)
 				end)
