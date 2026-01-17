@@ -1,0 +1,51 @@
+-- AUTO-INSTALL RAPID PUNCH TOOL
+-- FUNCIONA EN PC Y MOBILE
+-- NO REQUIERE STUDIO
+
+local Players = game:GetService("Players")
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+
+local player = Players.LocalPlayer
+local Backpack = player:WaitForChild("Backpack")
+
+-- BORRAR TOOL SI YA EXISTE
+if Backpack:FindFirstChild("Rapid Punch") then
+	Backpack:FindFirstChild("Rapid Punch"):Destroy()
+end
+
+-- CREAR TOOL
+local Tool = Instance.new("Tool")
+Tool.Name = "Rapid Punch"
+Tool.RequiresHandle = false
+Tool.CanBeDropped = false
+Tool.Parent = Backpack
+
+-- SERVICIO DEL EVENTO
+local PunchEvent = ReplicatedStorage
+	:WaitForChild("Events")
+	:WaitForChild("Punch")
+
+local Cooldown = false
+
+-- FUNCIÓN RAPID PUNCH (SUPER HEAVY)
+Tool.Activated:Connect(function()
+	if Cooldown then return end
+	Cooldown = true
+
+	for i = 1, 4 do
+		task.spawn(function()
+			for j = 1, 25 do
+				pcall(function()
+					PunchEvent:FireServer(0.4, 0.01, 1)
+				end)
+			end
+		end)
+	end
+
+	task.delay(0.12, function()
+		Cooldown = false
+	end)
+end)
+
+-- CONFIRMACIÓN
+warn("[✓] Rapid Punch Tool creado correctamente")
